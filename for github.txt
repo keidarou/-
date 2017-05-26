@@ -1,0 +1,45 @@
+#include<iostream>
+#include <vector>
+#include<string>
+#include<algorithm>
+#define FOR(i,a,b) for(int i=(a);i<(b);++i)
+#define REP(i,n)  FOR(i,0,n)
+typedef long long int ll;
+using namespace std;
+const ll INF = 2000000;
+int main()
+{
+	int n, cont = 0, m, data[501][501] = { false }; cin >> n >> m;
+	bool d1[501] = { false }, d2[501] = { false };
+	REP(i, m) {
+		int aa, b; cin >> aa >> b;
+		data[aa][b] = true;
+	}
+	REP(i, n + 1) {
+		if (data[1][i + 1]) {
+			d1[i + 1] = true;
+			d2[i + 1] = true;
+		}
+	}
+	int x = 0;
+	for (int x = 2; x < n + 1; x++)
+	{
+		if (d1[x]) {
+			for (int j = 2; j < n + 1; j++)
+			{
+				if (data[x][j]) {
+					d2[x] = true; d2[j] = true;
+				}
+				if (data[j][x]) {
+					d2[x] = true; d2[j] = true;
+				}
+			}
+		}
+	}
+	for (int i = 0; i < n + 1; i++)
+	{
+		if (d2[i]) { cont++; cout << i << endl; }
+	}
+	cout << cont << endl;
+	return 0;
+}
